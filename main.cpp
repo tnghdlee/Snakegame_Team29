@@ -149,7 +149,6 @@ void draw_score_and_mission(int stageNum, int currentLength, Mission mission) {
     mvwprintw(mission_win, y++, 2, "G: %2d (%c)", mission.gateTarget, (gateUseCount >= mission.gateTarget) ? 'v' : ' ');
     wrefresh(mission_win);
 
-    refresh();
 }
 
 void draw_map(Snake& snake, Mission mission, int stageNum) {
@@ -159,10 +158,9 @@ void draw_map(Snake& snake, Mission mission, int stageNum) {
         map[y][x] = (i == 0) ? SNAKE_HEAD : SNAKE_BODY;
     }
 
-    erase();
-
     for (int i = 0; i < HEIGHT; ++i) {
-        for (int j = 0; j < WIDTH; ++j) {
+        move(i, 0);
+	for (int j = 0; j < WIDTH; ++j) {
             switch (map[i][j]) {
                 case EMPTY: printw(" "); break;
                 case WALL: printw("W"); break;
@@ -174,7 +172,6 @@ void draw_map(Snake& snake, Mission mission, int stageNum) {
                 case GATE: printw("G"); break;
             }
         }
-        printw("\n");
     }
 
     refresh();
